@@ -18,15 +18,15 @@ func main() {
 	//     V               V
 	url := "get/hello/world"
 
-	url1, url2 := getFormattedUrls.Run(url)
+	urls := getFormattedUrls.Run(url)
 
 	//                                           V
 	// for "http://localhost:8080/get/hello/world"
-	mux.HandleFunc(url1, handler)
+	mux.HandleFunc(urls[0], handler)
 
 	//                                           V
 	// for "http://localhost:8080/get/hello/world/"
-	mux.HandleFunc(url2, handler)
+	mux.HandleFunc(urls[1], handler)
 
 	http.ListenAndServe(":8080", mux)
 }

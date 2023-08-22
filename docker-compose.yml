@@ -1,0 +1,19 @@
+version: '3.8'
+
+services:
+  golang:
+    container_name: gfude-golang-1
+    build:
+      context: docker/golang
+      args:
+        - ID_GROUP=${ID_GROUP}
+        - ID_USER=${ID_USER}
+        - GOLANG_VERSION=${GOLANG_VERSION}
+    working_dir: /var/www/back
+    volumes:
+      - ./:/var/www/back
+    command: tail -F anything
+    restart: unless-stopped
+    user: "${ID_GROUP}:${ID_USER}"
+    ports:
+      - "${APP_PORT:-8080}:8080"
